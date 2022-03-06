@@ -9,39 +9,32 @@ userGuesses = []
 userGuess = ""
 wrongGuesses = 0
 
-while wrongGuesses < 6 and not success:
+while wrongGuesses < 6 and success == False:
 
     print("\n" + " ".join(wordArr))
     
-    for i in range(len(word)):
-        userGuess = userGuess.join(wordArr)
-
     print("Please guess a letter:")
     guess = input()
 
     if (guess in word and guess not in wordArr):
         print("Good guess!")
-        wordArr[word.index(guess)] = guess
+        for i in range(len(word)):
+            if word[i] == guess:
+                wordArr[i] = guess
     else:
         print("Wrong")
+        wrongGuesses += 1
+        print("You have", 6 - wrongGuesses, "guesses left")
 
-
-    if wrongGuesses == 6:
-        print("You lose!")
-        print("You guessed: " + " ".join(userGuesses))
-        print("The word was: " + word)
-        break
-    
+    for i in range(len(word)):
+        userGuess = "".join(wordArr)
     if userGuess == word:
         success = True
         print("You guessed the word!")
         break
-    else:
-        print("You have", 6 - wrongGuesses, "guesses left")
-        wrongGuesses += 1
     
-
-
-
-
-print("test", end="")
+    if wrongGuesses == 6:
+        print("You lose!")
+        print("You guessed: " + userGuess)
+        print("The word was: " + word)
+        break
